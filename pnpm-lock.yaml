@@ -11,6 +11,9 @@ importers:
       '@vuepress/bundler-vite':
         specifier: 2.0.0-rc.9
         version: 2.0.0-rc.9(@types/node@20.12.11)(sass@1.77.1)
+      '@vuepress/plugin-register-components':
+        specifier: 2.0.0-rc.21
+        version: 2.0.0-rc.21(vuepress@2.0.0-rc.9(@vuepress/bundler-vite@2.0.0-rc.9(@types/node@20.12.11)(sass@1.77.1))(vue@3.4.27))
       vue:
         specifier: ^3.4.27
         version: 3.4.27
@@ -724,6 +727,11 @@ packages:
 
   '@vuepress/plugin-reading-time@2.0.0-rc.28':
     resolution: {integrity: sha512-M+nx784/NxhLZKf9iX3e71Q4n5T7wxAhvMbcSIgXNNT8QyzyMI59qLKOROSNQgTE6Qm070ZL7Gbao1PFrwi6UQ==}
+    peerDependencies:
+      vuepress: 2.0.0-rc.9
+
+  '@vuepress/plugin-register-components@2.0.0-rc.21':
+    resolution: {integrity: sha512-kfzM1fYTXJh0z0kmzA/Fwm7iTdcWJMtoncy42p/p/RwGjYtVfQw5PGbV/0mnwwupxsjA+VcOTcrJOcaphsUMUA==}
     peerDependencies:
       vuepress: 2.0.0-rc.9
 
@@ -2372,6 +2380,11 @@ snapshots:
       vuepress: 2.0.0-rc.9(@vuepress/bundler-vite@2.0.0-rc.9(@types/node@20.12.11)(sass@1.77.1))(vue@3.4.27)
     transitivePeerDependencies:
       - typescript
+
+  '@vuepress/plugin-register-components@2.0.0-rc.21(vuepress@2.0.0-rc.9(@vuepress/bundler-vite@2.0.0-rc.9(@types/node@20.12.11)(sass@1.77.1))(vue@3.4.27))':
+    dependencies:
+      chokidar: 3.6.0
+      vuepress: 2.0.0-rc.9(@vuepress/bundler-vite@2.0.0-rc.9(@types/node@20.12.11)(sass@1.77.1))(vue@3.4.27)
 
   '@vuepress/plugin-rtl@2.0.0-rc.28(vuepress@2.0.0-rc.9(@vuepress/bundler-vite@2.0.0-rc.9(@types/node@20.12.11)(sass@1.77.1))(vue@3.4.27))':
     dependencies:
