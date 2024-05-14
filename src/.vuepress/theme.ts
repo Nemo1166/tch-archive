@@ -7,17 +7,20 @@ export default hopeTheme({
   hostname: "https://nemo1166.github.io/tch-archive/",
 
   author: {
-    name: "R3tr0",
-    url: "https://mister-hope.com",
+    name: "泰拉通讯枢纽",
+    // url: "https://terrach.net",
   },
 
-  iconAssets: "fontawesome-with-brands",
+  iconAssets: [
+    "fontawesome-with-brands", 
+    "https://unpkg.com/akicons@latest/iconfont.css",
+  ],
 
-  logo: "https://theme-hope-assets.vuejs.press/logo.svg",
+  logo: "/logo.svg",
 
-  repo: "nemo1166/tch-archive",
+  // repo: "nemo1166/tch-archive",
 
-  docsDir: "src",
+  // docsDir: "src",
 
   // 导航栏
   navbar,
@@ -35,7 +38,7 @@ export default hopeTheme({
     intro: "/intro.html",
     medias: {
       // Baidu: "https://example.com",
-      BiliBili: "https://example.com",
+      // BiliBili: "https://example.com",
       // Bitbucket: "https://example.com",
       // Dingding: "https://example.com",
       // Discord: "https://example.com",
@@ -69,18 +72,6 @@ export default hopeTheme({
     },
   },
 
-  // 加密配置
-  encrypt: {
-    config: {
-      "/demo/encrypt.html": ["1234"],
-    },
-  },
-
-  // 多语言配置
-  metaLocales: {
-    editLink: "在 GitHub 上编辑此页",
-  },
-
   // 如果想要实时查看任何改变，启用它。注: 这对更新性能有很大负面影响
   // hotReload: true,
 
@@ -98,6 +89,7 @@ export default hopeTheme({
     components: {
       components: ["Badge", "VPCard"],
     },
+    photoSwipe: false,
 
     // 此处开启了很多功能用于演示，你应仅保留用到的功能。
     mdEnhance: {
