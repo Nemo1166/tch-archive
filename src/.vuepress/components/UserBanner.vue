@@ -10,8 +10,8 @@ const props = defineProps({
 const user = ref(null);
 
 onMounted(async () => {
-    const data = await call_api('user/card/'+props.uid); // 调用 fetchData 函数
-    user.value = data;
+  const data = await call_api('user/card/' + props.uid);
+  user.value = data;
 });
 
 const VerifyInfo = computed(() => {
@@ -19,13 +19,13 @@ const VerifyInfo = computed(() => {
     const asset = '/assets/sign/'
     switch (user.value.verify) {
       case 5:
-        return asset+'bili.png';
+        return asset + 'bili.png';
       case 6:
-        return asset+'creator-group.png';
+        return asset + 'creator-group.png';
       case 7:
-        return asset+'creator-indie.png';
+        return asset + 'creator-indie.png';
       case 8:
-        return asset+'admin.png';
+        return asset + 'admin.png';
       default:
         return '';
     }
@@ -53,7 +53,8 @@ const avatar = computed(() => {
       <div class="user-details">
         <h3><span class="iconfont icon-ak-operator"></span>&nbsp;{{ user.name }}</h3>
         <p><img :alt="`UID: ${uid}`" :src="`https://img.shields.io/badge/uid-${uid}-lightgreen`">&ensp;
-          <img alt="" v-if="user.honor" :src="`https://img.shields.io/badge/${user.honor}-8470FF`"></p>
+          <img alt="" v-if="user.honor" :src="`https://img.shields.io/badge/${user.honor}-8470FF`">
+        </p>
       </div>
     </div>
     <div v-else>

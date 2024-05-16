@@ -4,11 +4,10 @@ import { call_api } from "./utils/api";
 
 const user = ref(null);
 
-const uid = window.location.href.split('?')[1];
-
 onMounted(async () => {
-    const data = await call_api("user/fullmeta/" + uid); // 调用 fetchData 函数
-    user.value = data;
+  const uid = window.location.href.split('?')[1];
+  const data = await call_api("user/fullmeta/" + uid);
+  user.value = data;
 });
 
 const avatar = computed(() => {
