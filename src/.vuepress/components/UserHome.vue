@@ -8,13 +8,14 @@ onMounted(async () => {
   const uid = window.location.href.split('?')[1];
   const data = await call_api("user/fullmeta/" + uid);
   user.value = data;
+  user.value.uid = uid;
 });
 
 const avatar = computed(() => {
   if (!user || !user.value.avatar) {
     return "/assets/avatars/default.png";
   } else {
-    return `/assets/avatars/${uid}.png`;
+    return `/assets/avatars/${user.value.uid}.png`;
   }
 });
 
@@ -47,7 +48,7 @@ const VerifyInfo = computed(() => {
     <div class="user-details">
       <div class="user-name">{{ user.name }}</div>
       <p>
-        <img :alt="`UID: ${uid}`" :src="`https://img.shields.io/badge/uid-${uid}-lightgreen`" />&ensp;
+        <img :alt="`UID: ${user.uid}`" :src="`https://img.shields.io/badge/uid-${user.uid}-lightgreen`" />&ensp;
         <img alt="" v-if="user.honor" :src="`https://img.shields.io/badge/${user.honor}-8470FF`" />
       </p>
     </div>
