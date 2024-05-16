@@ -1,8 +1,9 @@
 ---
-icon: circle-info
+icon: fas fa-circle-info
+star: true
 ---
 
-# 泰讯档案馆
+# 关于项目
 
 > 一个赛博坟墓。
 

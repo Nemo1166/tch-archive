@@ -1,7 +1,6 @@
 import { hopeTheme } from "vuepress-theme-hope";
 import navbar from "./navbar.js";
 import sidebar from "./sidebar.js";
-import { MR_HOPE_AVATAR } from "./logo.js";
 
 export default hopeTheme({
   hostname: "https://nemo1166.github.io/tch-archive/",
@@ -21,6 +20,9 @@ export default hopeTheme({
   // repo: "nemo1166/tch-archive",
 
   // docsDir: "src",
+  toc: false,
+  prevLink: false,
+  nextLink: false,
 
   // 导航栏
   navbar,
@@ -85,7 +87,7 @@ export default hopeTheme({
     //   provider: "Waline",
     //   serverURL: "https://waline-comment.vuejs.press",
     // },
-
+    git: false, 
     components: {
       components: ["Badge", "VPCard"],
     },

@@ -4,7 +4,12 @@ export default navbar([
   "/",
   {
     text: "版区",
-    icon: "list",
+    icon: "fas fa-list",
     link: "/category/",
+  },
+  {
+    text: "话题标签",
+    icon: "fas fa-hashtag",
+    link: "/tag/",
   }
 ]);

@@ -11,7 +11,7 @@ export async function call_api(path: string) {
       throw new Error(`Expected response code 200, received ${data.code}`);
     }
   } catch (error) {
-    console.error('Error fetching data:', error);
+    console.error('Error fetching data when calling API:', error);
     throw error;
   }
 }
