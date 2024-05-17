@@ -4,8 +4,12 @@ import { UserContent } from './structures/UserInfo';
 import { call_api } from './utils/api';
 
 const props = defineProps({
-  uid: String
-})
+  uid: String,
+  floor: {
+    type: String,
+    required: false,
+  },
+});
 
 const user = ref(null);
 
@@ -51,7 +55,8 @@ const avatar = computed(() => {
         <img :src="VerifyInfo" v-if="VerifyInfo" class="sign-image" alt="Sign" />
       </div>
       <div class="user-details">
-        <h3><span class="iconfont icon-ak-operator"></span>&nbsp;{{ user.name }}</h3>
+        <h3><span class="iconfont icon-ak-operator"></span>
+          <span v-if="floor">{{ floor }} 楼</span>&emsp;{{ user.name }}</h3>
         <p><img :alt="`UID: ${uid}`" :src="`https://img.shields.io/badge/uid-${uid}-lightgreen`">&ensp;
           <img alt="" v-if="user.honor" :src="`https://img.shields.io/badge/${user.honor}-8470FF`">
         </p>

@@ -1,21 +1,21 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from "vue";
 import { call_api } from "./utils/api";
+import { UserFullmeta } from "./structures/UserInfo";
 
-const user = ref(null);
+const user = ref<UserFullmeta>(null);
 
 onMounted(async () => {
   const uid = window.location.href.split('?')[1];
   const data = await call_api("user/fullmeta/" + uid);
   user.value = data;
-  user.value.uid = uid;
 });
 
 const avatar = computed(() => {
   if (!user || !user.value.avatar) {
     return "/assets/avatars/default.png";
   } else {
-    return `/assets/avatars/${user.value.uid}.png`;
+    return `/assets/avatars/${user.value.user_id}.png`;
   }
 });
 
@@ -46,11 +46,13 @@ const VerifyInfo = computed(() => {
       <img :src="VerifyInfo" v-if="VerifyInfo" class="sign-image" alt="Sign" />
     </div>
     <div class="user-details">
-      <div class="user-name">{{ user.name }}</div>
-      <p>
-        <img :alt="`UID: ${user.uid}`" :src="`https://img.shields.io/badge/uid-${user.uid}-lightgreen`" />&ensp;
+      <div class="user-name">{{ user.name }} &ensp;<span class="last-login">最近登录：{{ user.last_login }}</span></div>
+      <p v-if="user.desc" class="user-desc">{{ user.desc }}</p><p class="user-desc" v-else>泰拉博士太拉了，什么都没有写</p>
+      <div class="meta">
+        <img :alt="`UID: ${user.user_id}`" :src="`https://img.shields.io/badge/uid-${user.user_id}-lightgreen`" />&ensp;
         <img alt="" v-if="user.honor" :src="`https://img.shields.io/badge/${user.honor}-8470FF`" />
-      </p>
+        <span class="user-veri" v-if="user.verify_info">{{ user.verify_info }}</span>
+      </div>
     </div>
 
   </div>
@@ -79,7 +81,7 @@ const VerifyInfo = computed(() => {
   width: 96px;
   height: 96px;
   position: relative;
-  margin-right: 3em;
+  margin: 0.5em 3em 1em 0;
 }
 
 .avatar {
@@ -110,5 +112,31 @@ const VerifyInfo = computed(() => {
   font-size: 20pt;
   font-weight: bold;
   margin-bottom: 1em;
+}
+
+.user-desc {
+  margin-bottom: 0.5em !important;
+}
+
+.user-veri {
+  color: gray;
+  padding: 0.5em;
+  font-size: small;
+
+  &:before {
+    content: "Verified as ";
+    font-weight: bold;
+  }
+}
+
+.last-login {
+  font-weight: normal;
+  font-size: small;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }
 </style>
