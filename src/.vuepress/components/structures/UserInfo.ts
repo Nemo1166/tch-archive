@@ -21,8 +21,15 @@ export interface UserFullmeta {
   verify_info: string;
 }
 
-export interface Comments {
-  comment_content: string;
-  floor: string;
-  user_id: number;
+export interface PostInfo {
+  comment_count: number;
+  guid: number;
+  post_date: string;
+  post_views: number;
+  title: string;
+}
+
+export interface Published {
+  posts: PostInfo[];
+  total: number;
 }

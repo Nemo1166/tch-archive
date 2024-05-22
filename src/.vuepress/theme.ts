@@ -11,6 +11,7 @@ export default hopeTheme({
   },
 
   iconAssets: [
+    "iconify",
     "fontawesome-with-brands", 
     "https://unpkg.com/akicons@latest/iconfont.css",
   ],

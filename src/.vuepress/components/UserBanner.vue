@@ -39,9 +39,9 @@ const VerifyInfo = computed(() => {
 
 const avatar = computed(() => {
   if (!user || !user.value.avatar) {
-    return '/assets/avatars/default.png';
+    return '/assets/avatars/default.webp';
   } else {
-    return `/assets/avatars/${props.uid}.png`;
+    return `https://rawcdn.githack.com/Nemo1166/tch-avatar/initium/avatars/${user.value.avatar}`;
   }
 });
 
@@ -55,8 +55,9 @@ const avatar = computed(() => {
         <img :src="VerifyInfo" v-if="VerifyInfo" class="sign-image" alt="Sign" />
       </div>
       <div class="user-details">
-        <h3><span class="iconfont icon-ak-operator"></span>
-          <span v-if="floor">{{ floor }} 楼</span>&emsp;{{ user.name }}</h3>
+        <p class="name"><span class="iconfont icon-ak-operator"></span>
+          <span v-if="floor">{{ floor }} 楼</span>&emsp;{{ user.name }}
+        </p>
         <p><img :alt="`UID: ${uid}`" :src="`https://img.shields.io/badge/uid-${uid}-lightgreen`">&ensp;
           <img alt="" v-if="user.honor" :src="`https://img.shields.io/badge/${user.honor}-8470FF`">
         </p>
@@ -102,6 +103,9 @@ const avatar = computed(() => {
   border: 3px white solid;
   border-radius: 50%;
   box-shadow: 0px 0px 5px gray;
+  object-fit: cover;
+  width: 3.5em;
+  height: 3.5em;
 }
 
 .sign-image {
@@ -115,9 +119,11 @@ const avatar = computed(() => {
 .user-details {
   width: 70%;
 
-  h3 {
+  .name {
     margin-bottom: 6px;
+    margin-top: 0.2em;
     font-weight: bold;
+    font-size: x-large;
   }
 
   p {

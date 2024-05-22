@@ -1,21 +1,39 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed, Ref } from "vue";
 import { call_api } from "./utils/api";
-import { UserFullmeta } from "./structures/UserInfo";
+import { Published, UserFullmeta } from "./structures/UserInfo";
 
 const user = ref<UserFullmeta>(null);
+const pub_post = ref<Published>({
+  'total': 0,
+  'posts': []
+});
+
+const pub_article = ref<Published>({
+  'total': 0,
+  'posts': []
+});
+
+async function get_published(uid: string, post_type: string, data: Ref<any>) {
+    const res = await call_api(`user/published/${uid}?type=${post_type}`);
+    data.value = res;
+}
 
 onMounted(async () => {
   const uid = window.location.href.split('?')[1];
   const data = await call_api("user/fullmeta/" + uid);
   user.value = data;
+  get_published(uid, 'normal', pub_post);
+  get_published(uid, 'single', pub_article);
+  // const publishedData = await call_api("user/published/" + uid);
+  // published.value = publishedData;
 });
 
 const avatar = computed(() => {
   if (!user || !user.value.avatar) {
-    return "/assets/avatars/default.png";
+    return '/assets/avatars/default.webp';
   } else {
-    return `/assets/avatars/${user.value.user_id}.png`;
+    return `https://rawcdn.githack.com/Nemo1166/tch-avatar/initium/avatars/${user.value.avatar}`;
   }
 });
 
@@ -47,7 +65,8 @@ const VerifyInfo = computed(() => {
     </div>
     <div class="user-details">
       <div class="user-name">{{ user.name }} &ensp;<span class="last-login">最近登录：{{ user.last_login }}</span></div>
-      <p v-if="user.desc" class="user-desc">{{ user.desc }}</p><p class="user-desc" v-else>泰拉博士太拉了，什么都没有写</p>
+      <p v-if="user.desc" class="user-desc" v-html="user.desc"></p>
+      <p class="user-desc" v-else>泰拉博士太拉了，什么都没有写</p>
       <div class="meta">
         <img :alt="`UID: ${user.user_id}`" :src="`https://img.shields.io/badge/uid-${user.user_id}-lightgreen`" />&ensp;
         <img alt="" v-if="user.honor" :src="`https://img.shields.io/badge/${user.honor}-8470FF`" />
@@ -60,11 +79,33 @@ const VerifyInfo = computed(() => {
     <p>Loading...</p>
   </div>
   <div>
-    <h2>Posts</h2>
+    <h2>发表的内容</h2>
     <div>
-      <h3>BBS</h3>
-      <h3>Articles</h3>
-      <h3>dynamics</h3>
+      <h3 v-if="user">帖子 BBS ({{ pub_post.total }})</h3>
+      <div class="pub-item" v-if="pub_post.total" v-for="post in pub_post.posts">
+        <!-- <router-link :to="`/posts/${post.guid}`"> -->
+        <p class="post-title"><span v-html="post.title"></span></p>
+        <!-- </router-link> -->
+        <hr />
+        <p class="post-meta">
+          <i class="fas fa-book-open"></i>{{ post.post_date }}
+          <i class="fas fa-eye"></i>{{ post.post_views }}
+          <i class="fas fa-comment-dots"></i>{{ post.comment_count }}
+        </p>
+      </div>
+      <h3 v-if="user">文章 Articles ({{ pub_article.total }})</h3>
+      <div class="pub-item" v-if="pub_article.total" v-for="post in pub_article.posts">
+        <!-- <router-link :to="`/posts/${post.guid}`"> -->
+        <p class="post-title"><span v-html="post.title"></span></p>
+        <!-- </router-link> -->
+        <hr />
+        <p class="post-meta">
+          <i class="fas fa-book-open"></i>{{ post.post_date }}
+          <i class="fas fa-eye"></i>{{ post.post_views }}
+          <i class="fas fa-comment-dots"></i>{{ post.comment_count }}
+        </p>
+      </div>
+      <h3>动态 dynamics</h3>
     </div>
   </div>
 </template>
@@ -88,6 +129,9 @@ const VerifyInfo = computed(() => {
   border: 6px white solid;
   border-radius: 50%;
   box-shadow: 0px 0px 5px gray;
+  object-fit: cover;
+  width: 6em;
+  height: 6em;
 }
 
 .sign-image {
@@ -138,5 +182,45 @@ const VerifyInfo = computed(() => {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+}
+
+.control {
+  font-size: small;
+}
+
+.pub-item {
+  border-radius: 5px;
+  margin: 0.2em 0;
+  padding: 0.3em;
+  transition: box-shadow 0.5s;
+
+  p {
+    margin: 0;
+  }
+
+  .post-title {
+    font-weight: bold;
+    transition: text-decoration 0.5s, color 0.5s;
+
+    &:hover {
+      cursor: pointer;
+      color: var(--theme-color);
+      text-decoration: underline var(--theme-color);
+    }
+  }
+
+  i {
+    margin: 0 0.5em;
+  }
+
+  .post-meta {
+    color: gray;
+    font-size: small;
+    font-family: monospace;
+  }
+
+  &:hover {
+    box-shadow: 0 0 3px gray;
+  }
 }
 </style>

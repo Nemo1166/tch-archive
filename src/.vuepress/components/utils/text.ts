@@ -1,7 +1,7 @@
 export function parseStickers(text: string): string {
   const stickerRegex = /\[s-([0-9]+)(?:-([0-9]+))?\]/g;
   return text.replace(stickerRegex, (_, cate, id) => {
-    console.log('sticker', cate, id);
+    // console.log('sticker', cate, id);
     const url_prefix = 'https://rawcdn.githack.com/Nemo1166/tch-sticker/0.0.1/webp/';
     let prefix = '';
     let url = '';
